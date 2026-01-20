@@ -1,9 +1,10 @@
 ﻿namespace MonteCarlo;
 
-class Helper
+public delegate bool AreaTest(double[] point);
+
+public class Helper
 {
     private static Random zufall = new Random();
-    
     
     public static double[] RandomPoint
     {
@@ -28,9 +29,22 @@ class Helper
     //Helper für MonteCarlo;
 }
 
-class MonteCarlo
+public class MonteCarloMethod
 {
     //Monte Carlo hier;
+    public static double MonteCarlo(int repetition, AreaTest test)
+    {
+        int count = 0;
+        for (int i = 0; i < repetition; i++)
+        {
+            if (test(Helper.RandomPoint))
+            {
+                count += 1;
+            }
+        }
+        return (double)count / repetition;
+    }
+    
 }
 
 class Program
