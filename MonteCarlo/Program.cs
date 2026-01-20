@@ -17,12 +17,32 @@ public class Helper
         }
     }
 
-    public static bool InCircle(double[] point)
+    public static bool InQuarterCircle(double[] point)
     {
         if (Math.Sqrt(Math.Pow(point[0],2) + Math.Pow(point[1],2)) <= 1)
         {
             return true;
         }
+        return false;
+    }
+
+    public static bool InTriangle(double[] point)
+    {
+        if (point[1] <= -point[0] + 1)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static bool UnderParabola(double[] point)
+    {
+        if (point[1] <= Math.Pow(point[0],2))
+        {
+            return true;
+        }
+
         return false;
     }
     
@@ -51,6 +71,16 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello, World!");
+        AreaTest test1 = Helper.InQuarterCircle;
+
+        Console.WriteLine($"{MonteCarloMethod.MonteCarlo(1000000, test1)*4}");
+        
+        AreaTest test2 = Helper.InTriangle;
+
+        Console.WriteLine($"{MonteCarloMethod.MonteCarlo(1000000, test2)}");
+        
+        AreaTest test3 = Helper.UnderParabola;
+
+        Console.WriteLine($"{MonteCarloMethod.MonteCarlo(1000000, test3)}");
     }
 }
